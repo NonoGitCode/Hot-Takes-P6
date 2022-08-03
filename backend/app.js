@@ -16,7 +16,7 @@ mongoose.connect(`mongodb+srv://${security.username}@cluster0.zov8g.mongodb.net/
 
 const app = express();
 app.use(express.json());
-app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 //CORS
 app.use((req, res, next) => {
