@@ -3,7 +3,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const security = require('../security/security');
 
-//Fonction pour créer un nouveau User et hasher le password 10 fois avec bcrypt
+//Fonction sigup pour créer un nouveau User et hasher le password 10 fois avec bcrypt
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
@@ -18,6 +18,7 @@ exports.signup = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
   };
 
+//Fonction login qui permet à l'utilisateur de se connecter si il existe dans la bdd et que les informations sont valides
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then(user => {

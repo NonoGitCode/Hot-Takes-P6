@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
+const MongooseErrors = require('mongoose-errors')
 
+
+//Modèle des informations requise pour ajouter une sauce à la bdd
 const sauceSchema = mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
@@ -13,6 +16,9 @@ const sauceSchema = mongoose.Schema({
   usersLiked: { type: [String] },
   usersDisliked:{ type: [String] }
 });
+
+sauceSchema.plugin(MongooseErrors);
+
 
 module.exports = mongoose.model('Sauce', sauceSchema);
 

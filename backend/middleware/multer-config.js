@@ -6,6 +6,7 @@ const MIME_TYPES = {
     'image/png': 'png'
 };
 
+//Fonction qui permet d'enregistrer les images téléchargées par l'utilisateur en modifiant leur nom
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, 'images')

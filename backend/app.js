@@ -6,8 +6,9 @@ const userRoutes = require('./routes/user');
 const security = require('./security/security');
 const helmet = require('helmet');
 
-//MongoDB
-mongoose.connect(`mongodb+srv://${security.username}@cluster0.zov8g.mongodb.net/?retryWrites=true&w=majority`,
+
+//Connexion à à la base de donnée mongoDB
+mongoose.connect(security.username,
 { useNewUrlParser: true,
   useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
@@ -16,9 +17,10 @@ mongoose.connect(`mongodb+srv://${security.username}@cluster0.zov8g.mongodb.net/
 
 const app = express();
 app.use(express.json());
+//Modification du middleware crossOriginRessourcePolicy de helmet pour autoriser l'affichage des images depuis tout site
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
-//CORS
+//Informations CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -27,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 
-
+//Routes que va suivre l'API à chaque appel
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', saucesRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
